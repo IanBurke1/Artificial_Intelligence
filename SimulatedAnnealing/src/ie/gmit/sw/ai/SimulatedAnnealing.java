@@ -7,26 +7,30 @@ import java.util.Random;
 public class SimulatedAnnealing {
 	
 	
-	private int temputure = 10;
-	private int transitions = 50000;
+	private int temputure;
+	private int transitions;
 	private Random random;
 	private GenerateKey key;
 	private Quadgrams grams;
 	private PlayfairDecryption playfair;
-	
-	
 	private Map<String, Integer> ngramsMap;
 	
-	public SimulatedAnnealing(String cipherText) {
+	public SimulatedAnnealing(int temputure, String cipherText) {
 		super();
+		this.playfair = new PlayfairDecryption();
 		this.playfair.setCipherText(cipherText);
+		this.key = new GenerateKey();
+		this.temputure = temputure;
+		this.transitions = 50000;
+		
 	}
 	
-	public void annealing() throws NumberFormatException, IOException {
-		
+	public void annealing() throws Throwable {
 		
 		String parent = key.genkey();
+		
 		ngramsMap = grams.parseGrams();
+		
 		String decrypt = playfair.decrypt(parent);
 		double parentFitness = grams.getFitness(decrypt);
 		double bestFitness = parentFitness;
@@ -37,8 +41,7 @@ public class SimulatedAnnealing {
 		
 		double fitness = bestFitness;
 		
-		for(int temp = 10; temp > 0; temp--) {
-			
+		for(int temp = temputure; temp > 0; temp--) {
 			for(int trans = transitions; trans > 0; trans--) {
 				
 				
@@ -72,12 +75,10 @@ public class SimulatedAnnealing {
 			} // for (trans) end
 			if(bestFitness > (fitness/1.5)) {
 				System.out.printf("\n----------------------------------------\nHIT! Temp: %d Key: %s Score: %.2f\n----------------------------------------\n", temp, parent, bestFitness);
-				if(bestFitness > (fitness/1.6)) break;
+				if(bestFitness > (fitness/1.6)) 
+					break;
 			}
 			System.out.println("\n\nKey found: " + parent + "\nDecrypted message: " + playfair.decrypt(parent));
 		} // for (temp) end
 	} //annealing end
-	
-	
-	
 } //Class end

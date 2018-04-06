@@ -2,6 +2,10 @@ package ie.gmit.sw.ai;
 
 import java.awt.Point;
 
+/*
+ * Adapted from: https://github.com/mckennapsean/code-examples/blob/master/Java/Playfair.java
+ */
+
 public class PlayfairDecryption {
 	private char[][] playfairTable;
 	private String cipherText;
@@ -13,16 +17,18 @@ public class PlayfairDecryption {
 		this.playfairTable = new char[5][5];
 		this.cipherText  = "";
 		this.plainText = new StringBuilder();
+		
 	}
 
-	public String decrypt(String key) {
+	public String decrypt(String key) throws Exception {
 		
-		//char[][] playfairTable = new char[5][5];
+		char[][] playfairTable = new char[5][5];
+		String keyword = key;
 		int index = 0;
 		
 		for (int i=0; i<5; i++) {
 			for (int j=0; j<5; j++) {
-				playfairTable[i][j] = key.charAt(index);
+				playfairTable[i][j] = keyword.charAt(index);
 				index++;
 			}
 		}
@@ -30,13 +36,14 @@ public class PlayfairDecryption {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		for(index = 0; index < cipherText.length() / 2; index++ ) {
+		for(index = 0; index < this.cipherText.length() / 2; index++ ) {
 			char a = this.cipherText.charAt(2 * index);
 			char b = this.cipherText.charAt(2 * index + 1);
-		    int r1 = (int) getPoint(a).getX();
-	        int r2 = (int) getPoint(b).getX();
-	        int c1 = (int) getPoint(a).getY();
-	        int c2 = (int) getPoint(b).getY();
+		    int r1 = (int) getPosition(a, playfairTable).getX();
+	        int r2 = (int) getPosition(b, playfairTable).getX();
+	        int c1 = (int) getPosition(a, playfairTable).getY();
+	        int c2 = (int) getPosition(b, playfairTable).getY();
+	        
 	      if(r1 == r2){
 	        c1 = (c1 + 4) % 5;
 	        c2 = (c2 + 4) % 5;
@@ -53,9 +60,9 @@ public class PlayfairDecryption {
 			
 	}
 		return sb.toString();
-		}
+}
 	
-	private Point getPoint(char c) {
+	private Point getPosition(char c, char[][] playfairTable) {
 	    Point pt = new Point(0,0);
 	    for(int i = 0; i < 5; i++)
 	      for(int j = 0; j < 5; j++)
@@ -72,6 +79,16 @@ public class PlayfairDecryption {
 	public void setCipherText(String cipherText) {
 		this.cipherText = cipherText;
 	}
+
+	public String getPlainText() {
+		return plainText.toString();
+	}
+
+	public void setPlainText(StringBuilder plainText) {
+		this.plainText.append(plainText);
+	}
+	
+	
 	
 	
 

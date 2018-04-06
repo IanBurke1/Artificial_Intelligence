@@ -14,34 +14,52 @@ import javax.print.attribute.HashAttributeSet;
 public class Quadgrams {
 	private static final String FILENAME = "4grams.txt";
 	private long totalCount;
-	private Map<String, Integer> ngrams = new HashMap<String, Integer>();
+	private Map<String, Integer> ngrams;
 
-	public Map<String, Integer> parseGrams() throws NumberFormatException, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(FILENAME))));
-		String line;
-		while((line = br.readLine()) != null) {
-			ngrams.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]));
-			totalCount += Double.parseDouble(line.split(" ")[1]);
-		}
-		br.close();
-		System.out.println(totalCount);
-		return ngrams;
+	public Quadgrams() {
+		this.ngrams = new HashMap<String, Integer>();
 	}
 	
-	public double getFitness(String text) {
+	public Map<String, Integer> parseGrams() throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(FILENAME))));
+		String line = "";
+		long count = 0;
+		
+		while((line = br.readLine()) != null) {
+			ngrams.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]));
+			
+			count += Double.parseDouble(line.split(" ")[1]);
+		}
+		setTotalCount(count);
+		br.close();
+		
+		return this.ngrams;
+	}
+	
+	public double getFitness(String cipherText) {
 		double result = 0;
 		int frequency = 0;
 		
-		for (int i = 0; i<text.length()-4; i++) {
-			if(ngrams.get(text.substring(i, i+4)) != null) {
-				frequency = ngrams.get(text.substring(i, i+4));
+		for (int i = 0; i<cipherText.length()-4; i++) {
+			if(ngrams.get(cipherText.substring(i, i+4)) != null) {
+				frequency = ngrams.get(cipherText.substring(i, i+4));
 				
 			}else {
 				frequency = 1;
 			}
-			result += Math.log10((double) frequency/totalCount);
+			result += Math.log10((double) frequency / this.getTotalCount());
 		}
 		return result;
 	}
+
+	public long getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(long totalCount) {
+		this.totalCount = totalCount;
+	}
+	
+	
 	
 } //Class end

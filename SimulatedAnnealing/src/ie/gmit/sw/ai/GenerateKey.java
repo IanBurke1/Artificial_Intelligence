@@ -4,24 +4,47 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GenerateKey {
+	private static GenerateKey instance;
 	private String key = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
 	
+	public GenerateKey() {
+		
+	}
+	
+	public static GenerateKey genKeyInstance() {
+		return (instance == null) ? new GenerateKey() : instance;
+	}
+	
 	public String genkey() {
-		int index;
-		char[] keyword = key.toCharArray();
-		Random random = new Random();
-		for (int i = keyword.length - 1; i > 0; i--) {
-			index = random.nextInt(i+1);
-			if (index != i) {
-				keyword[index] ^= keyword[i];
-				keyword[i] ^= keyword[index];
-				keyword[index] ^= keyword[i];
+		
+		StringBuilder newKey = new StringBuilder();
+		
+		newKey.append((key.length() < 25) ? removeRepeats(key + "ABCDEFGHIKLMNOPQRSTUVWXYZ") : key);
+		
+		for (int i=0; i<key.length(); i++) {
+			for (int j= newKey.length() - 1; j>0; j--) {
+				if (key.charAt(i) == newKey.charAt(j)) {
+					if (i < j) {
+						newKey.deleteCharAt(j);
+					}
+				}
 			}
 		}
-		return new String(keyword);
+		return newKey.toString();
+	}
+	
+	public String removeRepeats(String l) {
+		char[] line = l.toUpperCase().toCharArray();
+
+		for (int i = 0; i < line.length; i++) {
+			if (i != line.length - 1)
+line[i + 1] = (line[i] == line[i + 1]) ? 'X' : line[i + 1];
+		}
+		return new String(line);
 	}
 	
 	public String shuffle(String parentKey) {
+		
 		Random random = ThreadLocalRandom.current();
 		int x = random.nextInt(100); //Math.random()*100;
 		
