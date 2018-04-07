@@ -25,15 +25,11 @@ When the application runs, a console UI menu is displayed that gives four option
 ## Playfair Cipher
 Playfair is a digraphic substitution cipher based on a 5 x 5 square. A key is written into the square, either based on a keyword or randomly. For example, in the block below the keyword ‘abstruse’ has been written in horizontally, the 'I' standing also for 'J':
 
-A B S T R
-
-U E C D F
-
-G H I K L
-
-M N O P Q
-
-V W X Y Z
+#### A B S T R
+#### U E C D F
+#### G H I K L
+#### M N O P Q
+#### V W X Y Z
 
 A plaintext is enciphered two letters at a time. If a digram contains two letters that are the same an 'x' is inserted between them. If a message has an odd number of letters, a null is added at the end, usually 'x' or 'q'. There are three enciphering rules:
 
