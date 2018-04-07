@@ -24,15 +24,23 @@ When the application runs, a console UI menu is displayed that gives four option
 
 ## Playfair Cipher
 Playfair is a digraphic substitution cipher based on a 5 x 5 square. A key is written into the square, either based on a keyword or randomly. For example, in the block below the keyword ‘abstruse’ has been written in horizontally, the 'I' standing also for 'J':
+
 A B S T R
+
 U E C D F
+
 G H I K L
+
 M N O P Q
+
 V W X Y Z
 
 A plaintext is enciphered two letters at a time. If a digram contains two letters that are the same an 'x' is inserted between them. If a message has an odd number of letters, a null is added at the end, usually 'x' or 'q'. There are three enciphering rules:
-1. when both letters of the digram appear in the same row, the letters that follow in that row are taken as the cipher letters: thus ‘bt’ enciphers to ‘SR’. If the plain letter is at the end of a row, then the letter that follows is the letter at the start of the same row; so ‘tr’ enciphers as ‘RA’;
-2. plain letters in the same column are enciphered with letters that follow in that column. So ‘bh’ is enciphered ‘EN’;
+
+1. When both letters of the digram appear in the same row, the letters that follow in that row are taken as the cipher letters: thus ‘bt’ enciphers to ‘SR’. If the plain letter is at the end of a row, then the letter that follows is the letter at the start of the same row; so ‘tr’ enciphers as ‘RA’.
+
+2. plain letters in the same column are enciphered with letters that follow in that column. So ‘bh’ is enciphered ‘EN’.
+
 3. plain letters in different rows and columns are enciphered with letters at the free ends of the rectangle that is formed by the two letters. So ‘cp’ enciphers as ‘DO’ and ‘pc’ as ‘OD’.
 
 ## Simulated Annealing
