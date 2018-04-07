@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 /*
  * Adapted from: https://github.com/mckennapsean/code-examples/blob/master/Java/Playfair.java
+ * 
+ * This class is responsible for encrypting a message by setting a keyword.
  */
 
 public class Playfair {
@@ -98,7 +100,7 @@ public class Playfair {
 	    encDigraphs = encodeDigraph(digraph);
 	    for(int k = 0; k < length; k++)
 	    	out = out + encDigraphs[k];
-	    System.out.println(out);
+	    System.out.println("Encrypted text: " + out);
 	    
 	    
 	    
