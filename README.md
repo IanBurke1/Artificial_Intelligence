@@ -1,5 +1,5 @@
 # Using Simulated Annealing to Break a Playfair Cipher
-#### *Artificial Intelligence - Lecturer: Dr John Healy - 4th Year (Hons) Software Development, GMIT*
+#### *Artificial Intelligence - Lecturer: [Dr John Healy](https://github.com/bradanfeasa) - 4th Year (Hons) Software Development, GMIT*
 For my project in Artifical Intelligence, I am required to use the simulated annealing algorithm to break a Playfair Cipher. The application should have the following minimal set of features:
 
 - A menu-drivencommand line UI that enables a cipher-text source to be specified (a file or URL) and an output destination file for decrypted plain-text.
